@@ -1,0 +1,4 @@
+config.sh
+logs/*
+*.png
+!test-image.png
