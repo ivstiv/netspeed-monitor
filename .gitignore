@@ -3,3 +3,4 @@ logs/*
 !logs/.gitkeep
 *.png
 !test-image.png
+!showcase.png

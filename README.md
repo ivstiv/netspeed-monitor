@@ -1,7 +1,7 @@
 # netspeed-monitor
 
 A POSIX compliant shell script that checks internet speeds every 10 minutes and generates a plot in PNG format every 24 hours. Also capable of sending the image to a webhook. (I use it for Discord webhooks)
-
+![Showcase](https://github.com/Ivstiv/netspeed-monitor/blob/master/showcase.png)
 ## Installation
 
 1. Make sure you have the main dependencies: jq, speedtest-cli, gnuplot
