@@ -1,4 +1,5 @@
 config.sh
 logs/*
+!logs/.gitkeep
 *.png
 !test-image.png

@@ -15,7 +15,7 @@ A POSIX compliant shell script that checks internet speeds every 10 minutes and 
     ```
 2. Clone the repository
     ```
-    git clone LINK && cd netspeed-monitor
+    git clone https://github.com/Ivstiv/netspeed-monitor.git && cd netspeed-monitor
     ```
 3. Configure your webhook
     ```
