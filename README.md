@@ -40,6 +40,7 @@ Options:
 ```
 
 ## FAQ
+- Non-discord webhooks are receiving a message with a link of the plot hosted on https://ttm.sh
 - The --plot argument asks you for save location and if you want to send the image via webhook.
 - The logs are not being cleaned automatically, so your logs folder will grow indefinitely.
 - Probably a good idea to leave the script running in tmux or screen session: `screen -dmS netspeed-monitor sh netspeed-monitor.sh`
