@@ -8,7 +8,7 @@ set title ARG2
 set xdata time
 set timefmt '%H:%M'
 set format x '%H:%M'
-set terminal png linewidth 2
+set terminal png linewidth 2 size 2000,640
 set output ARG3
 set samples 100
 
