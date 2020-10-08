@@ -16,15 +16,22 @@ help() {
     sed -rn 's/^#H# ?//;T;p' "$0"
 }
 
-# Send an image to a webhook if the url is configured.
+# Send an image to whatever webhook has been configured.
 # $1 - Path to the image
 # Returns json output.
 sendWebhook() {
     if [ -n "$WEBHOOK" ]; then
         echo "Sending webhook:"
-        curl -X POST -F image=@"$1" "$WEBHOOK"
-    else
-        echo "You haven't configured a webhook url."
+        isDiscordWebhook=$(echo "$WEBHOOK" | grep 'discord')
+        if [ "$isDiscordWebhook" ]; then
+            # directly send the image to discord
+            curl -X POST -F image=@"$1" "$WEBHOOK"
+        else
+            # upload the image and send a link
+            downloadLink=$(curl -s -F file=@"$1" https://ttm.sh)
+            echo "Image uploaded: $downloadLink"
+            curl -s -X POST --data-urlencode "payload={\"username\": \"Netspeed-Monitor\", \"text\": \"Download plot from: $downloadLink\"}" "$WEBHOOK"
+        fi
     fi
 }
 
@@ -127,7 +134,7 @@ while true; do
 
         if [ "$now" = '23:50' ]; then
             generatePlot "$logFile" "$projectRoot/latest_plot.png"
-            [ -n "$WEBHOOK" ] && sendWebhook "$projectRoot/latest_plot.png"
+            sendWebhook "$projectRoot/latest_plot.png"
         fi
     else
         [ "$VERBOSE" = 'true' ] && echo "Next speed test is in $nextTestTime minutes."
