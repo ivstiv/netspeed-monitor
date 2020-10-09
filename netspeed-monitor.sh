@@ -40,10 +40,11 @@ sendWebhook() {
 # $2 - Output file of the plot
 # Returns output from generate_plot.gp
 generatePlot() {
+    file=$(basename "$1")
     echo "Generating plot:"
     avgDownload=$(awk '{ sum += $2 }; END { printf "%.2f", sum/NR }' "$1")
     avgUpload=$(awk '{ sum += $3 }; END { printf "%.2f", sum/NR }' "$1")
-    gnuplot -c generate_plot.gp "$1" "$(date +%Y-%b-%d)  |  Avg. Down: $avgDownload  |  Avg. Up: $avgUpload" "$2"
+    gnuplot -c generate_plot.gp "$1" "${file%.*}  |  Avg. Down: $avgDownload  |  Avg. Up: $avgUpload" "$2"
 }
 
 # Checks for installed dependencies and kills the script
