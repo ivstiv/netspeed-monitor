@@ -22,15 +22,15 @@ help() {
 sendWebhook() {
     if [ -n "$WEBHOOK" ]; then
         echo "Sending webhook:"
-        isDiscordWebhook=$(echo "$WEBHOOK" | grep 'discord')
-        if [ "$isDiscordWebhook" ]; then
-            # directly send the image to discord
-            curl -X POST -F image=@"$1" "$WEBHOOK"
-        else
+        isSlackWebhook=$(echo "$WEBHOOK" | grep 'slack')
+        if [ "$isSlackWebhook" ]; then
             # upload the image and send a link
             downloadLink=$(curl -s -F file=@"$1" https://ttm.sh)
             echo "Image uploaded: $downloadLink"
             curl -s -X POST --data-urlencode "payload={\"username\": \"Netspeed-Monitor\", \"text\": \"Download plot from: $downloadLink\"}" "$WEBHOOK"
+        else
+            # directly send the image to discord/custom webhook
+            curl -X POST -F image=@"$1" "$WEBHOOK"
         fi
     fi
 }
