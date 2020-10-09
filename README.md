@@ -40,12 +40,14 @@ Options:
 ```
 
 ## FAQ
-- Non-discord webhooks are receiving a message with a link of the plot hosted on https://ttm.sh
 - The --plot argument asks you for save location and if you want to send the image via webhook.
 - The logs are not being cleaned automatically, so your logs folder will grow indefinitely.
 - Probably a good idea to leave the script running in tmux or screen session: `screen -dmS netspeed-monitor sh netspeed-monitor.sh`
 - Other questions - find me in [my Discord server](https://discord.gg/VMSDGVD).
 - You can probably write your own endpoint for the webhook. Here is an example in PHP:
 ```
-php code here
+# The code is missing basic checks and authorisation!
+# it is just an example of how simple it is to receive the image
+$targetFile = 'plots/' . basename($_FILES["image"]["name"]);
+move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile);
 ```
