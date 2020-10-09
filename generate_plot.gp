@@ -3,12 +3,13 @@
 print "Log file: ", ARG1
 print "Title: ", ARG2
 print "Output: ", ARG3
+print "Width: ", ARG4
 
 set title ARG2
 set xdata time
 set timefmt '%H:%M'
 set format x '%H:%M'
-set terminal png linewidth 2 size 2000,640
+set terminal png linewidth 2 size ARG4,640
 set output ARG3
 set samples 1000
 

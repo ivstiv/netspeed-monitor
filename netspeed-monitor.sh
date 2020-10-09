@@ -44,7 +44,11 @@ generatePlot() {
     echo "Generating plot:"
     avgDownload=$(awk '{ sum += $2 }; END { printf "%.2f", sum/NR }' "$1")
     avgUpload=$(awk '{ sum += $3 }; END { printf "%.2f", sum/NR }' "$1")
-    gnuplot -c generate_plot.gp "$1" "${file%.*}  |  Avg. Down: $avgDownload  |  Avg. Up: $avgUpload" "$2"
+    numOfRows=$(cat "$1" | wc -l)
+    plotWidth=$((numOfRows*40))
+    [ "$plotWidth" -gt 2000 ] && plotWidth=2000
+    [ "$plotWidth" -lt 640 ] && plotWidth=640
+    gnuplot -c generate_plot.gp "$1" "${file%.*}  |  Avg. Down: $avgDownload  |  Avg. Up: $avgUpload" "$2" "$plotWidth"
 }
 
 # Checks for installed dependencies and kills the script
